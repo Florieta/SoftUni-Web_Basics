@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\SoftUni\\source\\SoftUni-Web Basics\\HttpWebServer\\HttpWebServer\\HttpWebServer.csproj",
+      "projectUniqueName": "D:\\SoftUni\\source\\SoftUni-Web_Basics\\HttpWebServer\\HttpWebServer\\HttpWebServer.csproj",
       "projectName": "HttpWebServer",
-      "projectPath": "D:\\SoftUni\\source\\SoftUni-Web Basics\\HttpWebServer\\HttpWebServer\\HttpWebServer.csproj",
+      "projectPath": "D:\\SoftUni\\source\\SoftUni-Web_Basics\\HttpWebServer\\HttpWebServer\\HttpWebServer.csproj",
       "packagesPath": "C:\\Users\\Aspire\\.nuget\\packages\\",
-      "outputPath": "D:\\SoftUni\\source\\SoftUni-Web Basics\\HttpWebServer\\HttpWebServer\\obj\\",
+      "outputPath": "D:\\SoftUni\\source\\SoftUni-Web_Basics\\HttpWebServer\\HttpWebServer\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Aspire\\AppData\\Roaming\\NuGet\\NuGet.Config",
