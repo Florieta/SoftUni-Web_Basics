@@ -41,49 +41,57 @@ namespace HttpWebServer
         {
 
         }
-        public void Start()
+        public async Task Start()
         {
             serverListener.Start();
-
+            
             Console.WriteLine($"Server is listening {port} port");
 
             Console.WriteLine("Listening for requests");
 
             while (true)
             {
-                var connection = serverListener.AcceptTcpClient();
+                var connection = await serverListener.AcceptTcpClientAsync();
+                _ = Task.Run(async () =>
+                {
+                    var networkStream = connection.GetStream();
+                    string requestText = await ReadRequest(networkStream);
+                    Console.WriteLine(requestText);
 
-                var networkStream = connection.GetStream();
-                string requestText = ReadRequest(networkStream);
-                Console.WriteLine(requestText);
+                    var request = Request.Parse(requestText);
+                    var response = this.routingTable.MatchRequest(request);
 
-                var request = Request.Parse(requestText);
-                var response = this.routingTable.MatchRequest(request);
-                WriteResponse(networkStream, response);
+                    if (response.PreRenderAction != null)
+                    {
+                        response.PreRenderAction(request, response);
+                    }
+                    await WriteResponse(networkStream, response);
 
-                connection.Close();
+                    connection.Close();
+                });
+                
 
             }
 
         }
 
-        private void WriteResponse(NetworkStream networkStream, string content)
+        private async Task WriteResponse(NetworkStream networkStream, string content)
         {
             
-            var responseBytes = Encoding.UTF8.GetBytes(content).ToString();
+            var responseBytes = Encoding.UTF8.GetBytes(content.ToString());
 
-            networkStream.Write(responseBytes);
+            await networkStream.WriteAsync(responseBytes);
         }
 
-        private string ReadRequest(NetworkStream networkStream)
+        private async Task<string> ReadRequest(NetworkStream networkStream)
         {
             byte[] buffer = new byte[1024];
             StringBuilder request = new StringBuilder();
-            int totalBytes = 0;
+            var totalBytes = 0;
 
             do
             {
-               int bytesRead = networkStream.Read(buffer, 0, buffer.Length);
+               var bytesRead = await networkStream.ReadAsync(buffer, 0, buffer.Length);
                 totalBytes += bytesRead;
                 if(totalBytes > 10 * 1024)
                 {
