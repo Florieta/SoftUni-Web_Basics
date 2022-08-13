@@ -5,6 +5,7 @@ using System.Net.Sockets;
 using System.Text;
 using System;
 using HttpWebServer.HTTP;
+using System.Web;
 
 
 //"127.0.0.1", 8080
@@ -30,7 +31,8 @@ public class Program
 .MapGet("/HTML", new HtmlResponse(Program.HtmlForm))
 .MapPost("/HTML", new TextResponse("", AddFormDataAction))
 .MapGet("/Content", new HtmlResponse(Program.DownLoadForm))
-.MapPost("/Content", new TextFileResponse(Program.FileName)));
+.MapPost("/Content", new TextFileResponse(Program.FileName))
+.MapGet("/Cookies", new HtmlResponse("",Program.AddCookiesAction)));
 
     await server.Start();
     }
@@ -75,6 +77,42 @@ public class Program
         var responsesString = string.Join(Environment.NewLine + new String('-', 100), responses);
 
         await File.WriteAllTextAsync(fileName, responsesString);
+    }
+
+    private static void AddCookiesAction(Request request, Response response)
+    {
+        var requestHasCookies = request.Cookies.Any(c => c.Name != Session.SessionCookieName);
+        var bodyText = "";
+        if (requestHasCookies)
+        {
+            var cookieText = new StringBuilder();
+            cookieText.AppendLine($"<h1>Cookies</h1>");
+
+            cookieText.Append("<table border = '1'><tr><th>Name</th><th>Value</th></tr>");
+
+            foreach (var cookie in request.Cookies)
+            {
+                cookieText.Append("<tr>");
+                cookieText.Append($"<td>{HttpUtility.HtmlEncode(cookie.Name)}</td>");
+                cookieText.Append($"<td>{HttpUtility.HtmlEncode(cookie.Value)}</td>");
+                cookieText.Append("</tr>");
+
+            }
+            cookieText.Append("</table>");
+            bodyText = cookieText.ToString();
+        }
+        else
+        {
+            bodyText = "<h1>Cookies Set!</h1>";
+        }
+
+        if(!requestHasCookies)
+        {
+            response.Cookies.Add("My-Cookie", "My-Value");
+            response.Cookies.Add("My-Second-Cookie", "My-Second-Value");
+
+
+        }
     }
 }
 
