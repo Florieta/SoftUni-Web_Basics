@@ -10,7 +10,7 @@ namespace HttpWebServer.HTTP
     {
         public Response(StatusCode statusCode)
         {
-            StatusCode = statusCode;
+            this.StatusCode = statusCode;
             Headers.Add(Header.Server, "SoftUni Server");
             Headers.Add(Header.Date, $"{DateTime.UtcNow:r}");
         }
@@ -24,7 +24,7 @@ namespace HttpWebServer.HTTP
 
         public string Body { get; set; }
 
-        public Action<Request, Response> PreRenderAction { get; protected set; }
+        public Action<Request, Response>? PreRenderAction { get; protected set; }
 
         public override string ToString()
         {

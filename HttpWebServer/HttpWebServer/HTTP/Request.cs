@@ -20,7 +20,7 @@ namespace HttpWebServer.HTTP
         public string Body { get;  private set; }
         public Session Session { get; private set; }
 
-        public IReadOnlyDictionary<string, string> Form { get; private set; }
+        public IReadOnlyDictionary<string, string>? Form { get; private set; }
         public static Request Parse(string request)
         {
             var lines = request.Split("\r\n");
@@ -105,7 +105,7 @@ namespace HttpWebServer.HTTP
             .Where(part => part.Length == 2)
             .ToDictionary(part => part[0], part => part[1], StringComparer.InvariantCultureIgnoreCase);
 
-        private static object ParseHeaders(IEnumerable<string> lines)
+        private static HeaderCollection ParseHeaders(IEnumerable<string> lines)
         {
             HeaderCollection headers = new HeaderCollection();
 

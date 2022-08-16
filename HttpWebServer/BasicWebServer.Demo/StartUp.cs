@@ -59,7 +59,7 @@ public class Program
 
     private static void GetUserDataAction(Request request, Response response)
     {
-        if(request.Session.ContainsKey(Session.SessionUserKey))
+        if (request.Session.ContainsKey(Session.SessionUserKey))
         {
             response.Body = "";
             response.Body += $"<h3>Current logged-in user " + $"is with username '{Username}</h3>";
@@ -84,7 +84,7 @@ public class Program
 
         var usernameMatches = request.Form["Username"] == Program.Username;
         var passwordMatches = request.Form["Username"] == Program.Password;
-        if(usernameMatches && passwordMatches)
+        if (usernameMatches && passwordMatches)
         {
             request.Session[Session.SessionUserKey] = "MyUserId";
             response.Cookies.Add(Session.SessionCookieName, request.Session.Id);
@@ -104,7 +104,7 @@ public class Program
         var sessionExists = request.Session.ContainsKey(Session.SessionCurrentDateKey);
         var bodyText = "";
 
-        if(sessionExists)
+        if (sessionExists)
         {
             var currentDate = request.Session[Session.SessionCurrentDateKey];
             bodyText = $"Store date: {currentDate}!";
@@ -132,7 +132,7 @@ public class Program
     private static async Task<string> DownloadWebSiteContent(string url)
     {
         var httpClient = new HttpClient();
-        using(httpClient)
+        using (httpClient)
         {
             var response = await httpClient.GetAsync(url);
 
@@ -184,7 +184,7 @@ public class Program
             bodyText = "<h1>Cookies Set!</h1>";
         }
 
-        if(!requestHasCookies)
+        if (!requestHasCookies)
         {
             response.Cookies.Add("My-Cookie", "My-Value");
             response.Cookies.Add("My-Second-Cookie", "My-Second-Value");

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "B1ve2nPo+9uQ5XQQNWUvvqWv0741nd5JjLatsAhWQ58P4Tzp23nH9I8iH9eCs2Rbwa5oIYpO0Fux4HUvevZ6qA==",
+  "dgSpecHash": "wvdNe/slJl+wX/7lACjMYeKXEIq+wy7tZ/MQwZmWxDPpnMcdS7d21YG3rMbabkUjiWSRAU60GdNDyiz8LODffg==",
   "success": true,
-  "projectFilePath": "D:\\SoftUni\\source\\SoftUni-Web_Basics\\HttpWebServer\\HttpWebServer\\HttpWebServer.csproj",
+  "projectFilePath": "D:\\SoftUni\\source\\SoftUni-Web_Basics\\HttpWebServer\\HttpWebServer\\BasicWebServer.Server.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }

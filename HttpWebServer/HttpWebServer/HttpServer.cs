@@ -69,7 +69,7 @@ namespace HttpWebServer
                     AddSession(request, response);
                     await WriteResponse(networkStream, response);
 
-                    connection.Close();
+                    //connection.Close();
                 });
                 
 
@@ -85,7 +85,7 @@ namespace HttpWebServer
                 response.Cookies.Add(Session.SessionCookieName, request.Session.Id);
             }
         }
-        private async Task WriteResponse(NetworkStream networkStream, string content)
+        private async Task WriteResponse(NetworkStream networkStream, Response content)
         {
             
             var responseBytes = Encoding.UTF8.GetBytes(content.ToString());
