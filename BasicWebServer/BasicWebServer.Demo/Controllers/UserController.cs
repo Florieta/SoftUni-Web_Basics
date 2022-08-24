@@ -53,7 +53,7 @@ namespace BasicWebServer.Demo.Controllers
             return Html(bodyText);
         }
 
-        internal Response GetUserData()
+        public Response GetUserData()
         {
             if (Request.Session.ContainsKey(Session.SessionUserKey))
             {
@@ -63,7 +63,7 @@ namespace BasicWebServer.Demo.Controllers
             return Redirect("/login");
         }
 
-        internal Response Logout()
+        public Response Logout()
         {
             Request.Session.Clear();
 
