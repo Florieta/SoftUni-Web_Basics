@@ -45,6 +45,7 @@ namespace BasicWebServer.Server.Routing
            string path,
            Func<Request, Response> responseFunction)
         {
+            Guard.AgainstDuplicatedKey(routes[Method.Get], path, "RoutingTable.Get");
             routes[Method.Get][path] = responseFunction;
 
             return this;
@@ -54,6 +55,7 @@ namespace BasicWebServer.Server.Routing
              string path,
              Func<Request, Response> responseFunction)
         {
+            Guard.AgainstDuplicatedKey(routes[Method.Get], path, "RoutingTable.Get");
             routes[Method.Post][path] = responseFunction;
 
             return this;
