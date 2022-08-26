@@ -1,4 +1,5 @@
-﻿using BasicWebServer.Server.HTTP;
+﻿using BasicWebServer.Server.Common;
+using BasicWebServer.Server.HTTP;
 using BasicWebServer.Server.Routing;
 using System;
 using System.Collections.Generic;
@@ -18,6 +19,7 @@ namespace BasicWebServer.Server
 
         private readonly RoutingTable routingTable;
 
+        public readonly IServiceCollection ServiceCollection;
         public HttpServer(string ipAddress, int port, Action<IRoutingTable> routingTableConfiguration)
         {
             this.ipAddress = IPAddress.Parse(ipAddress);
@@ -26,6 +28,8 @@ namespace BasicWebServer.Server
             this.serverListener = new TcpListener(this.ipAddress, port);
 
             routingTableConfiguration(this.routingTable = new RoutingTable());
+
+            ServiceCollection = new ServiceCollection();
         }
 
         public HttpServer(int port, Action<IRoutingTable> routingTable)
@@ -57,7 +61,7 @@ namespace BasicWebServer.Server
 
                     Console.WriteLine(requestText);
 
-                    var request = Request.Parse(requestText);
+                    var request = Request.Parse(requestText, ServiceCollection);
 
                     var response = this.routingTable.MatchRequest(request);
 
