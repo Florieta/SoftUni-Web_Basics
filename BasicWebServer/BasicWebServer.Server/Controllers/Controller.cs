@@ -11,7 +11,7 @@ namespace BasicWebServer.Server.Controllers
 {
     public class Controller
     {
-        public Request Request { get; private init; }
+        public Request Request { get; set; }
         public Controller(Request request)
         {
             this.Request = request;

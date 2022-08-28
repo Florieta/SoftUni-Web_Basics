@@ -22,6 +22,7 @@ namespace BasicWebServer.Demo.Controllers
 
         public Response Index() => Text("Hello from the server!");
 
+        public Response Student(string name, int age) => Text($"I'm {name} and I'm {age} years old");
         public Response Redirect() => Redirect("https://softuni.bg");
 
         public Response Html() => View();
