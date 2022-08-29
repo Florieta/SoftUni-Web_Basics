@@ -11,7 +11,7 @@ namespace BasicWebServer.Server.HTTP
         OK = 200,
         Found = 302,
         BadRequest = 400,
-        Unauthorised = 401,
+        Unauthorized = 401,
         NotFound = 404
     }
 }

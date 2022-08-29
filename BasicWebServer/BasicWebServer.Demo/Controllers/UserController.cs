@@ -1,4 +1,5 @@
-﻿using BasicWebServer.Server.Controllers;
+﻿using BasicWebServer.Server.Attributes;
+using BasicWebServer.Server.Controllers;
 using BasicWebServer.Server.HTTP;
 using System;
 using System.Collections.Generic;
@@ -32,7 +33,7 @@ namespace BasicWebServer.Demo.Controllers
 
             if (usernameMatches && passwordMatches)
             {
-                Request.Session[Session.SessionUserKey] = "MyUserId";
+                SignIn(Guid.NewGuid().ToString());
                 CookieCollection cookies = new CookieCollection();
                 cookies.Add(Session.SessionCookieName,
                     Request.Session.Id);
@@ -45,20 +46,15 @@ namespace BasicWebServer.Demo.Controllers
 
             return Redirect("/Login");
         }
-
+        [Authorize]
         public Response GetUserData()
         {
-            if (Request.Session.ContainsKey(Session.SessionUserKey))
-            {
-                return Html($"<h3>Currently logged-in user is with username '{Username}'</h3>");
-            }
-
-            return Redirect("/Login");
+            return Html($"<h3>Currently logged-in user is with id '{User.Id}'</h3>");
         }
 
         public Response Logout()
         {
-            Request.Session.Clear();
+            SignOut();
 
             return Html("<h3>Logged out successfully!</h3>");
         }
