@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 using BasicWebServer.Server;
-using BasicWebServer.Demo.Controllers;
+using BasicWebServer.Demo.Services;
 using BasicWebServer.Server.Routing;
 
 namespace BasicWebServer.Demo
@@ -10,9 +10,13 @@ namespace BasicWebServer.Demo
 
         public static async Task Main()
         {
-            await new HttpServer(routes => routes
-               .MapControllers())
-              .Start();
+            var server = new HttpServer(routes => routes
+              .MapControllers());
+
+            server.ServiceCollection
+                .Add<UserService>();
+
+            await server.Start();
 
         }
 
