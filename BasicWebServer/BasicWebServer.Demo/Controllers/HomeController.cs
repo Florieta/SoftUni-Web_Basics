@@ -41,6 +41,18 @@ namespace BasicWebServer.Demo.Controllers
             return View(model);
         }
 
+        public Response Test()
+        {
+            var model = new List<FormViewModel>()
+            {
+                new(){ Age = 23, Name = "Pesho" },
+                new(){ Age = 24, Name = "Gosho" },
+                new(){ Age = 23, Name = "Misho" }
+            };
+
+            return View(model);
+        }
+
         public Response DownloadContent() => File(FileName);
 
         public Response Cookies()
